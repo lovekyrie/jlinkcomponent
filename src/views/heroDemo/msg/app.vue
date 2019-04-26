@@ -7,20 +7,26 @@
     <button @click="toShowTool">hero的tool演示</button>
     <button @click="toShowCallPop">hero的callPop演示</button>
     <button @click="toShowKeyBoard">hero的keyboard演示</button>
+    <div class="editor">
+      <editor @trigerSubmit="getEditorInfo"></editor>
+    </div>
   </div>
 </template>
 
 <script>
 import Msg from "hero/components/msg";
+import Editor from "@/components/Editor";
 export default {
   data() {
     return {
       msgText: "引用组件的方式使用Msg",
-      showMsg: true
+      showMsg: true,
+      content: ""
     };
   },
   components: {
-    Msg
+    Msg,
+    Editor
   },
   methods: {
     toShowMsg() {
@@ -61,6 +67,10 @@ export default {
       this.$hero.KeyBoard.show({
         total: 123
       });
+    },
+    getEditorInfo(content) {
+      //content就是富文本里面的内容
+      this.content = content;
     }
   }
 };
@@ -68,14 +78,14 @@ export default {
 
 <style scoped lang="less">
 #msg {
+  width: 100%;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: center;
   button {
-    // flex: 1;
+    flex: 1;
     border: 1px solid blue;
     border-radius: 5px;
-    width: 60%;
     height: 30px;
     line-height: 30px;
     color: #fff;
@@ -83,6 +93,9 @@ export default {
     &:not(:nth-of-type(1)) {
       margin-top: 0.3rem;
     }
+  }
+  div {
+    flex: 1;
   }
 }
 </style>
